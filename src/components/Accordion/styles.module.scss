@@ -1,0 +1,27 @@
+.container {
+  .accordionTitle {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    background-color: var(--gray-200);
+    padding: 24px;
+    border-radius: 8px;
+
+    p {
+      color: var(--text-900);
+      font-weight: 500;
+    }
+  }
+
+  .openedAccordion {
+    border-radius: 8px 8px 0 0;
+    padding-bottom: 20px;
+  }
+
+  .accordionContent {
+    background-color: var(--gray-200);
+    padding: 0 24px 24px 24px;
+    border-radius: 0 0 8px 8px;
+    cursor: pointer;
+  }
+}

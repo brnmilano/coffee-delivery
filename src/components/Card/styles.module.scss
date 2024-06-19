@@ -1,0 +1,27 @@
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  width: 38px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.card {
+  background-color: var(--yellow-light);
+
+  &:hover {
+    background-color: var(--yellow);
+  }
+}
+
+.addToCard {
+  background-color: var(--purple-dark);
+
+  &:hover {
+    background-color: var(--purple);
+  }
+}

@@ -1,0 +1,77 @@
+@import "../../../styles/breakpoints";
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  padding: 10px 16px;
+  gap: 16px;
+  min-height: 37px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.primary {
+  background-color: var(--yellow);
+  color: var(--white);
+  font-weight: 600;
+
+  &:hover {
+    background-color: var(--yellow-dark);
+  }
+}
+
+.secondary {
+  background-color: var(--purple-light);
+  color: var(--purple-dark);
+  font-weight: 700;
+}
+
+.icon {
+  background-color: var(--base-button);
+  color: var(--base-text);
+  font-weight: 600;
+
+  &:hover {
+    background-color: var(--base-hover);
+    color: var(--base-subtitle);
+  }
+}
+
+.buttonSizeLarge {
+  width: 100%;
+  min-height: 48px;
+  font-size: 18px;
+}
+
+.buttonSizeMedium {
+  min-width: 267px;
+}
+
+.buttonSizeSmall {
+  min-width: 143px;
+  height: 38px;
+  border-radius: 6px;
+}
+
+// Estilos para tablets
+@include media-md {
+}
+
+// Estilos para desktops
+@include media-lg {
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    padding: 10px 16px;
+    gap: 16px;
+    min-height: 37px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+  }
+}
