@@ -1,0 +1,94 @@
+.container {
+  margin-bottom: 200px;
+
+  h2 {
+    font-family: "Baloo 2", sans-serif;
+    color: var(--base-title);
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+
+  h3 {
+    font-family: "Baloo 2", sans-serif;
+    color: var(--base-subtitle);
+    font-weight: 700;
+  }
+
+  .coffes {
+    background-color: var(--base-card);
+    padding: 20px 25px;
+    max-width: 256px;
+    max-height: 310px;
+    width: 100%;
+    border-radius: 6px 36px;
+    position: relative;
+    text-align: center;
+
+    .imageWrapper {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: -20px;
+    }
+
+    .coffeType {
+      margin-top: 70px;
+      margin-bottom: 25px;
+
+      p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--yellow-light);
+        color: var(--yellow-dark);
+        border-radius: 12px;
+        max-width: 110px;
+        margin: 0 auto;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+    }
+
+    .textWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      p {
+        font-size: 14px;
+        line-height: 17px;
+      }
+    }
+
+    .buyCoffe {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 35px;
+
+
+
+      span {
+        p {
+          color: var(--base-text);
+          font-weight: 400;
+          font-size: 14px;
+          margin-right: 5px;
+        }
+
+        h3 {
+          font-family: "Baloo 2", sans-serif;
+          color: var(--base-text);
+          font-weight: 700;
+        }
+      }
+
+      .buyCoffeButtons {
+        display: flex;
+        gap: 8px;
+      }
+    }
+  }
+}
