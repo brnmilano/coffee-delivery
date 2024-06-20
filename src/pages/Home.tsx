@@ -1,9 +1,10 @@
-import { Button } from "../components/Form/Button";
+import Container from "../components/Container/Container";
+import Hero from "../components/Hero";
 
 export default function Home() {
   return (
-    <div>
-      <Button placeholder="Click me" theme="icon" />
-    </div>
+    <Container>
+      <Hero />
+    </Container>
   );
 }
