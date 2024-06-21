@@ -58,7 +58,7 @@ export default function Card(props: ButtonInterface) {
       {...rest}
     >
       {AddToCardOrCart ? (
-        <ShoppingCartSimple color="#F3F2F2" size={20} />
+        <ShoppingCartSimple color="#F3F2F2" size={20} weight="fill" />
       ) : (
         <ShoppingCart color="#C47F17" size={20} />
       )}
