@@ -1,12 +1,16 @@
 import { MapPin } from "phosphor-react";
+import { useCoffes } from "../../hooks/useCoffe";
+import { useNavigate } from "react-router-dom";
+import { cartRoute } from "../../utils/paths";
 import Container from "../Container/Container";
 import styles from "./styles.module.scss";
 import Logo from "../../../public/logo.svg";
 import Card from "../Card";
-import { useCoffes } from "../../hooks/useCoffe";
 
 export default function Header() {
   const { cartItems } = useCoffes();
+
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -23,7 +27,7 @@ export default function Header() {
           <div className={styles.cartWrapper}>
             <Card
               onClick={() => {
-                console.log(cartItems);
+                navigate(cartRoute);
               }}
               AddToCardOrCart={false}
               theme="card"

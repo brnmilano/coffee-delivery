@@ -1,8 +1,8 @@
-import { useCoffes } from "../../../hooks/useCoffe";
 import { useState } from "react";
 import { Minus, Plus } from "phosphor-react";
+import { useCoffes } from "../../../../hooks/useCoffe";
 import styles from "./styles.module.scss";
-import Card from "../../Card";
+import Card from "../../../../components/Card";
 
 interface CoffeProps {
   coffe: {

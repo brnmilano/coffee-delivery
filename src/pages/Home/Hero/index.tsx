@@ -1,6 +1,6 @@
 import { Coffee, Package, ShoppingCart, Timer } from "phosphor-react";
 import styles from "./styles.module.scss";
-import CoffeDellivery from "../../../public/coffe-dellivery.png";
+import CoffeDellivery from "../../../../public/coffe-dellivery.png";
 
 export default function Hero() {
   const infoItems = [

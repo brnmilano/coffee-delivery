@@ -1,4 +1,4 @@
-import { coffeData } from "../../utils/coffes";
+import { coffeData } from "../../../utils/coffes";
 import styles from "./styles.module.scss";
 import CoffeQuantity from "./CoffeQuantity";
 
