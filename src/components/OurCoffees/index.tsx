@@ -1,4 +1,4 @@
-import { coffeeData } from "../../utils/coffes";
+import { coffeData } from "../../utils/coffes";
 import styles from "./styles.module.scss";
 import CoffeQuantity from "./CoffeQuantity";
 
@@ -8,7 +8,7 @@ export default function OurCoffees() {
       <h2>Nossos cafés</h2>
 
       <div className={styles.coffeWrapper}>
-        {coffeeData.map((coffee) => (
+        {coffeData.map((coffee) => (
           <div className={styles.coffes} key={coffee.id}>
             <div>
               <div className={styles.imageWrapper}>
