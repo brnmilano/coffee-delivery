@@ -23,5 +23,24 @@
         color: var(--purple);
       }
     }
+
+    .cartWrapper {
+      position: relative;
+
+      .cartItems {
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        height: 24px;
+        width: 24px;
+        background-color: var(--yellow-dark);
+        color: var(--white);
+        font-size: 14px;
+      }
+    }
   }
 }

@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  gap: 10px;
+
+  .counterWrapper {
+    display: flex;
+    align-items: center;
+    height: 38px;
+    background-color: var(--base-button);
+    border-radius: 6px;
+    padding: 0 8px;
+  }
+
+  .quantity {
+    width: 30px;
+  }
+
+  .decreaseCoffe,
+  .increaseCoffe {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--purple);
+    margin-top: 3px;
+  }
+}

@@ -1,6 +1,6 @@
 import { coffeeData } from "../../utils/coffes";
 import styles from "./styles.module.scss";
-import Card from "../Card";
+import CoffeQuantity from "./CoffeQuantity";
 
 export default function OurCoffees() {
   return (
@@ -10,7 +10,7 @@ export default function OurCoffees() {
       <div className={styles.coffeWrapper}>
         {coffeeData.map((coffee) => (
           <div className={styles.coffes} key={coffee.id}>
-            <div key={coffee.title}>
+            <div>
               <div className={styles.imageWrapper}>
                 <img src={coffee.image} alt={coffee.alt} />
               </div>
@@ -34,10 +34,8 @@ export default function OurCoffees() {
                   <h3>{coffee.price}</h3>
                 </span>
 
-                <div className={styles.buyCoffeButtons}>
-                  <button>- 1 +</button>
-
-                  <Card AddToCardOrCart theme="addToCart" />
+                <div>
+                  <CoffeQuantity coffe={coffee} />
                 </div>
               </div>
             </div>

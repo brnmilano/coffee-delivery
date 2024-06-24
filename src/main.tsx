@@ -4,13 +4,16 @@ import { CommonProvider } from "./hooks/useCommon.tsx";
 import Router from "./routes/index.tsx";
 import { BrowserRouter } from "react-router-dom";
 import "./styles/index.scss";
+import { CoffesProvider } from "./hooks/useCoffe.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <CommonProvider>
-        <Router />
-      </CommonProvider>
+      <CoffesProvider>
+        <CommonProvider>
+          <Router />
+        </CommonProvider>
+      </CoffesProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  //</React.StrictMode>
 );

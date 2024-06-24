@@ -3,8 +3,11 @@ import Container from "../Container/Container";
 import styles from "./styles.module.scss";
 import Logo from "../../../public/logo.svg";
 import Card from "../Card";
+import { useCoffes } from "../../hooks/useCoffe";
 
 export default function Header() {
+  const { cartItems } = useCoffes();
+
   return (
     <Container>
       <div className={styles.container}>
@@ -17,7 +20,19 @@ export default function Header() {
             <p>Porto Alegre, RS</p>
           </div>
 
-          <Card AddToCardOrCart={false} theme="card" />
+          <div className={styles.cartWrapper}>
+            <Card
+              onClick={() => {
+                console.log(cartItems);
+              }}
+              AddToCardOrCart={false}
+              theme="card"
+            />
+
+            {cartItems.length > 0 && (
+              <div className={styles.cartItems}>{cartItems.length}</div>
+            )}
+          </div>
         </div>
       </div>
     </Container>

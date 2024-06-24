@@ -43,7 +43,6 @@ export function Input(props: InputInterface) {
     control,
     errors,
     label,
-    type = "text",
     ...rest
   } = props;
 

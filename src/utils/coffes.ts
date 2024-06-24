@@ -1,3 +1,4 @@
+import { Coffe } from "../hooks/useCoffe";
 import Expresso from "../../public/Coffes/expresso-tradicional.png";
 import ExpressoAmericano from "../../public/Coffes/expresso-americano.png";
 import ExpressoCremoso from "../../public/Coffes/expresso-cremoso.png";
@@ -13,7 +14,7 @@ import Havaiano from "../../public/Coffes/havaiano.png";
 import Arabe from "../../public/Coffes/arabe.png";
 import Irlandes from "../../public/Coffes/irlandes.png";
 
-export const coffeeData = [
+export const coffeData = [
   {
     id: 1,
     image: Expresso,
@@ -144,4 +145,4 @@ export const coffeeData = [
     description: "Bebida a base de café, uísque irlandês, açúcar e chantilly",
     price: "9,90",
   },
-];
+] as Coffe[];
