@@ -75,6 +75,14 @@ main {
   background-color: var(--background);
 }
 
+.toast-message {
+  background: darkblue;
+  color: #fff;
+  font-size: 20px;
+  width: 34vw;
+  padding: 30px 20px;
+}
+
 // Styles for mobiles
 @include media-xs {
   h1 {

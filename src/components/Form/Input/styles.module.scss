@@ -9,12 +9,6 @@
   width: 100%;
   position: relative;
 
-  label {
-    font-weight: 400;
-    font-size: 16px;
-    color: var(--text-900);
-  }
-
   .inputContainer {
     position: relative;
     width: 100%;
@@ -22,14 +16,15 @@
     align-items: center;
 
     .input {
-      border-radius: 24px;
+      border-radius: 6px;
       width: 100%;
-      border: solid 1px var(--gray-500);
+      border: solid 1px var(--base-button);
       padding: 10px 15px;
       min-height: 48px !important;
-      color: var(--text-900);
+      color: var(--base-label);
       font-size: 14px;
       font-family: inherit !important;
+      background-color: var(--base-input);
 
       &::placeholder {
         color: var(--gray-400);
@@ -50,11 +45,11 @@
 }
 
 .inputError {
-  border: 1px solid var(--red) !important;
+  border: 1px solid var(--error) !important;
 }
 
 .errorMessage {
-  color: var(--red);
+  color: var(--error);
   margin-top: -5px;
   visibility: hidden;
   opacity: 0;

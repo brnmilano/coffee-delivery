@@ -37,31 +37,20 @@ export const DisplayErrorMessage = (data: any) => {
 };
 
 export function Input(props: InputInterface) {
-  const {
-    mask,
-    registerField,
-    control,
-    errors,
-    label,
-    ...rest
-  } = props;
+  const { mask, registerField, control, errors, label, ...rest } = props;
 
   return (
     <div className={styles.container}>
-      {label && (
-        <label className={styles.label} htmlFor={registerField}>
-          {label}
-        </label>
-      )}
-
       <div className={styles.inputContainer}>
         <Controller
           name={registerField}
           control={control}
           render={({ field }) => (
             <InputMask
+              aria-label={label || "input"}
               mask={mask || ""}
               maskChar={null}
+              placeholder={label}
               className={`${styles.input} ${
                 errors[registerField] && styles.inputError
               }`}
