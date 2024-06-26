@@ -15,7 +15,9 @@ export default function Header() {
   return (
     <Container>
       <div className={styles.container}>
-        <img src={Logo} alt="Logo" />
+        <a style={{ height: "40px" }} href="/">
+          <img src={Logo} alt="Logo" />
+        </a>
 
         <div className={styles.locationAndCart}>
           <div className={styles.location}>

@@ -33,6 +33,7 @@
       &:disabled {
         background-color: var(--disabled-input);
         color: var(--gray-400);
+        cursor: not-allowed;
       }
     }
 

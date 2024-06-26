@@ -12,7 +12,8 @@
   }
 
   .quantity {
-    width: 30px;
+    padding: 0 10px;
+    color: var(--base-subtitle);
   }
 
   .decreaseCoffe,
@@ -22,5 +23,22 @@
     cursor: pointer;
     color: var(--purple);
     margin-top: 3px;
+  }
+
+  .removeItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--base-button);
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 0 10px;
+    text-transform: uppercase;
+    color: var(--base-text);
+
+    svg {
+      color: var(--purple);
+    }
   }
 }

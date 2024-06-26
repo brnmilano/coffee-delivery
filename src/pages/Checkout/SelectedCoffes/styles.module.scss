@@ -1,0 +1,101 @@
+.container {
+  width: 40%;
+
+  .title {
+    font-size: 18px;
+    font-family: "Baloo 2", sans-serif;
+    color: var(--base-subtitle);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .coffesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: var(--base-card);
+    padding: 40px;
+    border-radius: 6px 44px;
+
+    .coffesWrapper {
+      .coffesContent {
+        border-bottom: 1px solid var(--base-button);
+        margin-bottom: 30px;
+      }
+
+      .coffeItem {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+
+        img {
+          width: 64px;
+          height: 64px;
+        }
+
+        .titleAndRemoveCoffe {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          p {
+            font-size: 16px;
+            color: var(--base-subtitle);
+          }
+        }
+
+        .coffePrice {
+          p {
+            font-size: 16px;
+            color: var(--base-subtitle);
+            font-weight: 600;
+          }
+        }
+      }
+
+      .emptyCartImg {
+        margin-bottom: 20px;
+        
+        img {
+          border-radius: 6px;
+          width: 100%;
+        }
+      }
+    }
+
+    .valuesWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .totalItensWrapper,
+      .deliveryPriceWrapper,
+      .totalPriceWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .totalItensWrapper,
+      .deliveryPriceWrapper {
+        color: var(--base-text);
+
+        &:first-child {
+          p {
+            font-size: 14px;
+          }
+        }
+
+        p {
+          font-size: 16px;
+        }
+      }
+
+      .totalPriceWrapper {
+        color: var(--base-subtitle);
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+  }
+}

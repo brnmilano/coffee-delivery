@@ -31,7 +31,11 @@ export default function OurCoffees() {
                 <span style={{ display: "flex" }}>
                   <p>R$</p>
 
-                  <h3>{coffee.price}</h3>
+                  <h3>
+                    {coffee.price.toLocaleString("pt-br", {
+                      minimumFractionDigits: 2,
+                    })}
+                  </h3>
                 </span>
 
                 <div>

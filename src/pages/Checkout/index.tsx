@@ -3,7 +3,6 @@ import {
   FormSchemaProps,
   FormValidationSchema,
 } from "../../models/formValidationSchema";
-import { useCoffes } from "../../hooks/useCoffe";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormType } from "../../types/form";
@@ -20,11 +19,7 @@ interface FormProps {
 export default function Checkout({ props }: FormProps) {
   const { cep, street, number, complement, district, city, uf } = props || {};
 
-  const { cartItems } = useCoffes();
-
   const [selectedOption, setSelectedOption] = useState<string>("");
-
-  console.log(selectedOption);
 
   const {
     control,
@@ -63,20 +58,16 @@ export default function Checkout({ props }: FormProps) {
   return (
     <div>
       <Container>
-        {cartItems.length > 0 ? (
-          <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
-            <CompleteYourOrder
-              control={control}
-              errors={errors}
-              handleOptionClick={handleOptionClick}
-              selectedOption={selectedOption}
-            />
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.container}>
+          <CompleteYourOrder
+            control={control}
+            errors={errors}
+            handleOptionClick={handleOptionClick}
+            selectedOption={selectedOption}
+          />
 
-            <SelectedCoffes />
-          </form>
-        ) : (
-          <div>Seu carrinho está vazio</div>
-        )}
+          <SelectedCoffes />
+        </form>
       </Container>
     </div>
   );

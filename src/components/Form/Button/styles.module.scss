@@ -11,6 +11,12 @@
   font-size: 14px;
   border: none;
   cursor: pointer;
+
+  &:disabled {
+    background-color: var(--disabled-input);
+    color: var(--base-text-disabled);
+    cursor: not-allowed;
+  }
 }
 
 .primary {
@@ -20,6 +26,10 @@
 
   &:hover {
     background-color: var(--yellow-dark);
+  }
+
+  &:hover:disabled {
+    background-color: var(--disabled-input);
   }
 }
 

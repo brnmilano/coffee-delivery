@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Minus, Plus } from "phosphor-react";
+import { Minus, Plus, Trash } from "phosphor-react";
 import { useCoffes } from "../../../../hooks/useCoffe";
 import styles from "./styles.module.scss";
 import Card from "../../../../components/Card";
 
-interface CoffeProps {
+export interface CoffeProps {
   coffe: {
     id: number;
     image: string;
@@ -12,7 +12,8 @@ interface CoffeProps {
     type: string[];
     title: string;
     description: string;
-    price: string;
+    price: number;
+    totalPrice: number;
   };
 }
 
@@ -27,11 +28,6 @@ export default function CoffeQuantity(props: CoffeProps) {
     }
 
     setCoffeQuantity(coffeQuantity - 1);
-
-    // Função para remover um item do carrinho
-    // const handleRemoveCoffeFromCart = () => {
-    //   addToCart({ ...props.coffe, quantity: 1 }, 'remove');
-    // };
   };
 
   const handleIncreaseCoffe = () => {
@@ -44,27 +40,64 @@ export default function CoffeQuantity(props: CoffeProps) {
 
   const handleAddCoffeToCart = () => {
     if (coffeQuantity > 0) {
-      addToCart({ ...props.coffe, quantity: coffeQuantity });
+      addToCart({ ...props.coffe, quantity: coffeQuantity }, "add");
 
       setCoffeQuantity(0);
     }
   };
 
+  //Função para remover um item do carrinho
+  const handleRemoveCoffeFromCart = () => {
+    addToCart({ ...props.coffe, quantity: 1 }, "remove");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.counterWrapper}>
-        <button className={styles.decreaseCoffe} onClick={handleDecreaseCoffe}>
+        <button
+          type="button"
+          className={styles.decreaseCoffe}
+          onClick={handleDecreaseCoffe}
+        >
           <Minus size={18} weight="bold" />
         </button>
 
         <div className={styles.quantity}>{coffeQuantity}</div>
 
-        <button className={styles.increaseCoffe} onClick={handleIncreaseCoffe}>
+        <button
+          type="button"
+          className={styles.increaseCoffe}
+          onClick={handleIncreaseCoffe}
+        >
           <Plus size={18} weight="bold" />
         </button>
       </div>
 
-      <Card onClick={handleAddCoffeToCart} AddToCardOrCart theme="addToCart" />
+      {window.location.pathname !== "/carrinho" ? (
+        <Card
+          onClick={handleAddCoffeToCart}
+          AddToCardOrCart
+          theme="addToCart"
+        />
+      ) : (
+        <div style={{ display: "flex", gap: 10 }}>
+          <Card
+            onClick={handleAddCoffeToCart}
+            AddToCardOrCart
+            theme="addToCart"
+            type="button"
+          />
+
+          <button
+            onClick={handleRemoveCoffeFromCart}
+            type="button"
+            className={styles.removeItem}
+          >
+            <Trash size={20} />
+            Remover
+          </button>
+        </div>
+      )}
     </div>
   );
 }

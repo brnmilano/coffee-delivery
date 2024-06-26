@@ -20,19 +20,26 @@ export interface Coffe {
   type: string[];
   title: string;
   description: string;
-  price: string;
+  price: number;
   quantity: number;
+  totalPrice: number;
 }
 
 interface CoffesContextData {
   cartItems: Coffe[];
   setCartItems: Dispatch<SetStateAction<Coffe[]>>;
-  addToCart: (item: Coffe) => void;
+  totalPriceItems: number;
+  setTotalPriceItems: Dispatch<SetStateAction<number>>;
+  addToCart: (item: Coffe, action: string) => void;
 }
 
 export const CoffesContext = createContext({} as CoffesContextData);
 
 function CoffesProvider({ children }: useCoffesProps) {
+  const [totalPriceItems, setTotalPriceItems] = useState<number>(0);
+
+  console.log("Valor total do carrinho:", totalPriceItems.toFixed(2));
+
   /**
    * Função para recuperar o valor inicial do carrinho de compras.
    *
@@ -61,7 +68,7 @@ function CoffesProvider({ children }: useCoffesProps) {
    *                  que contém todas as informações necessárias do produto.
    * @param action - Uma string que determina a ação a ser realizada. Pode ser "add" ou "remove".
    */
-  const addToCart = (newItem: Coffe, action = "add") => {
+  const addToCart = (newItem: Coffe, action: string) => {
     const existingItemIndex = cartItems.findIndex(
       (item) => item.id === newItem.id
     );
@@ -70,12 +77,30 @@ function CoffesProvider({ children }: useCoffesProps) {
       const updatedCartItems = [...cartItems];
 
       if (action === "add") {
-        updatedCartItems[existingItemIndex].quantity = newItem.quantity;
+        // Atualiza a quantidade de itens iguais adicionados ao carrinho
+        updatedCartItems[existingItemIndex].quantity += newItem.quantity ?? 0;
       }
+
+      // Atualiza o preço total com base na quantidade de itens iguais adicionados ao carrinho
+      // Caso o item com id 1 seja adicionado 2x o cartItems.price será R$19,80
+      updatedCartItems[existingItemIndex].price =
+        updatedCartItems[existingItemIndex].quantity * newItem.price;
 
       setCartItems(updatedCartItems);
     } else if (action === "add") {
+      // Define o preço total ao adicionar um novo item caso já exista um item com o mesmo id no carrinho
+      // Caso já tenha dois itens com id 1 no carrinho e adicione mais 1 item com id 1 o cartItems.price será R$29,70
+      newItem.price = newItem.price * (newItem.quantity ?? 1);
+
       setCartItems((prevItems) => [...prevItems, newItem]);
+    }
+
+    if (action === "remove") {
+      const updatedCartItems = cartItems.filter(
+        (item) => item.id !== newItem.id
+      );
+
+      setCartItems(updatedCartItems);
     }
   };
 
@@ -83,11 +108,21 @@ function CoffesProvider({ children }: useCoffesProps) {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
+  useEffect(() => {
+    const totalValue = cartItems.reduce((total, item) => {
+      return total + item.price;
+    }, 0);
+
+    setTotalPriceItems(totalValue);
+  }, [cartItems]);
+
   return (
     <CoffesContext.Provider
       value={{
         cartItems,
         setCartItems,
+        totalPriceItems,
+        setTotalPriceItems,
         addToCart,
       }}
     >
