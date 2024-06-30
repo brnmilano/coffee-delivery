@@ -1,138 +1,116 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-refresh/only-export-components */
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { ReactNode, createContext, useContext, useReducer } from "react";
 
-interface useCoffesProps {
+interface useCoffeesProps {
   children: ReactNode;
 }
 
-export interface Coffe {
+export interface Coffee {
   id: number;
   image: string;
-  alt: string;
   type: string[];
-  title: string;
+  name: string;
   description: string;
   price: number;
   quantity: number;
-  totalPrice: number;
 }
 
-interface CoffesContextData {
-  cartItems: Coffe[];
-  setCartItems: Dispatch<SetStateAction<Coffe[]>>;
-  totalPriceItems: number;
-  setTotalPriceItems: Dispatch<SetStateAction<number>>;
-  addToCart: (item: Coffe, action: string) => void;
+interface CoffeesContextData {
+  cartItems: Coffee[];
+  addProductsInCart: (product: Coffee, productQuantity: number) => void;
+  increaseProductQuantity: (product: Coffee, productQuantity: number) => void;
+  decreaseProductQuantity: (product: Coffee, productQuantity: number) => void;
 }
 
-export const CoffesContext = createContext({} as CoffesContextData);
+export const CoffeesContext = createContext({} as CoffeesContextData);
 
-function CoffesProvider({ children }: useCoffesProps) {
-  const [totalPriceItems, setTotalPriceItems] = useState<number>(0);
+function CoffeesProvider({ children }: useCoffeesProps) {
+  //localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
-  console.log("Valor total do carrinho:", totalPriceItems.toFixed(2));
+  const [cartItems, dispatch] = useReducer((state: Coffee[], action: any) => {
+    console.log(action);
 
-  /**
-   * Função para recuperar o valor inicial do carrinho de compras.
-   *
-   * Busca os itens do carrinho armazenados no localStorage.
-   * Se existirem itens salvos, converte de uma string JSON para um array de objetos e os retorna para serem usados como estado inicial do carrinho.
-   *
-   * Caso não encontre nada no localStorage, retorna um array vazio, indicando que o carrinho está inicialmente vazio.
-   * @returns Coffe[] || []
-   */
-  const getInitialCartValue = () => {
-    const storedCart = localStorage.getItem("cartItems");
-
-    if (storedCart) {
-      return JSON.parse(storedCart);
+    if (action === "ADD_NEW_PRODUCT") {
+      return [...state, action.payload.addNewProduct];
     }
 
-    return [];
+    return state;
+  }, []);
+
+  const addProductsInCart = (product: Coffee, productQuantity: number) => {
+    const addNewProduct = {
+      ...product,
+      quantity: productQuantity,
+    };
+
+    dispatch({
+      type: "ADD_NEW_PRODUCT",
+      payload: {
+        addNewProduct,
+      },
+    });
+
+    console.log(addNewProduct.quantity);
   };
 
-  const [cartItems, setCartItems] = useState<Coffe[]>(getInitialCartValue);
+  const increaseProductQuantity = (
+    product: Coffee,
+    productQuantity: number
+  ) => {
+    const increaseOneItem = {
+      ...product,
+      quantity: productQuantity + 1,
+    };
 
-  /**
-   * Adiciona os itens ao carrinho ou atualiza a quantidade de um item existente.
-   *
-   * @param newItem - O item a ser adicionado ao carrinho. Deve ser um objeto do tipo Coffe,
-   *                  que contém todas as informações necessárias do produto.
-   * @param action - Uma string que determina a ação a ser realizada. Pode ser "add" ou "remove".
-   */
-  const addToCart = (newItem: Coffe, action: string) => {
-    const existingItemIndex = cartItems.findIndex(
-      (item) => item.id === newItem.id
-    );
+    dispatch({
+      type: "INCREASE_PRODUCT_QUANTITY",
+      payload: {
+        increaseOneItem,
+      },
+    });
 
-    if (existingItemIndex >= 0) {
-      const updatedCartItems = [...cartItems];
-
-      if (action === "add") {
-        // Atualiza a quantidade de itens iguais adicionados ao carrinho
-        updatedCartItems[existingItemIndex].quantity += newItem.quantity ?? 0;
-      }
-
-      // Atualiza o preço total com base na quantidade de itens iguais adicionados ao carrinho
-      // Caso o item com id 1 seja adicionado 2x o cartItems.price será R$19,80
-      updatedCartItems[existingItemIndex].price =
-        updatedCartItems[existingItemIndex].quantity * newItem.price;
-
-      setCartItems(updatedCartItems);
-    } else if (action === "add") {
-      // Define o preço total ao adicionar um novo item caso já exista um item com o mesmo id no carrinho
-      // Caso já tenha dois itens com id 1 no carrinho e adicione mais 1 item com id 1 o cartItems.price será R$29,70
-      newItem.price = newItem.price * (newItem.quantity ?? 1);
-
-      setCartItems((prevItems) => [...prevItems, newItem]);
-    }
-
-    if (action === "remove") {
-      const updatedCartItems = cartItems.filter(
-        (item) => item.id !== newItem.id
-      );
-
-      setCartItems(updatedCartItems);
-    }
+    //console.log({ increaseOneItem });
   };
 
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
+  const decreaseProductQuantity = (
+    product: Coffee,
+    productQuantity: number
+  ) => {
+    console.log({ product });
+    console.log({ productQuantity });
 
-  useEffect(() => {
-    const totalValue = cartItems.reduce((total, item) => {
-      return total + item.price;
-    }, 0);
+    const decreaseOneItem = {
+      ...product,
+      quantity: productQuantity - 1,
+    };
 
-    setTotalPriceItems(totalValue);
-  }, [cartItems]);
+    dispatch({
+      type: "DECREASE_PRODUCT_QUANTITY",
+      payload: {
+        decreaseOneItem,
+      },
+    });
+
+    console.log(decreaseOneItem.quantity);
+  };
 
   return (
-    <CoffesContext.Provider
+    <CoffeesContext.Provider
       value={{
         cartItems,
-        setCartItems,
-        totalPriceItems,
-        setTotalPriceItems,
-        addToCart,
+        addProductsInCart,
+        increaseProductQuantity,
+        decreaseProductQuantity,
       }}
     >
       {children}
-    </CoffesContext.Provider>
+    </CoffeesContext.Provider>
   );
 }
 
-function useCoffes() {
-  return useContext(CoffesContext);
+function useCoffees() {
+  return useContext(CoffeesContext);
 }
 
-export { useCoffes, CoffesProvider };
+export { useCoffees, CoffeesProvider };

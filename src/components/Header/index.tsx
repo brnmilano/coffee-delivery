@@ -1,14 +1,14 @@
 import { MapPin } from "phosphor-react";
-import { useCoffes } from "../../hooks/useCoffe";
 import { useNavigate } from "react-router-dom";
 import { cartRoute } from "../../utils/paths";
+import { useCoffees } from "../../hooks/useCoffe";
 import Container from "../Container/Container";
 import styles from "./styles.module.scss";
 import Logo from "../../../public/logo.svg";
 import Card from "../Card";
 
 export default function Header() {
-  const { cartItems } = useCoffes();
+  const { cartItems } = useCoffees();
 
   const navigate = useNavigate();
 

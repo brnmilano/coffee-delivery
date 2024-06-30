@@ -11,6 +11,7 @@ import CompleteYourOrder from "./CompleteYourOrder";
 import SelectedCoffes from "./SelectedCoffes";
 import styles from "./styles.module.scss";
 import Container from "../../components/Container/Container";
+import { AddressProps } from "../../types/address";
 
 interface FormProps {
   props?: FormType;
@@ -40,7 +41,7 @@ export default function Checkout({ props }: FormProps) {
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: AddressProps) => {
     console.log(data);
 
     const formattedData = {

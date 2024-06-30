@@ -1,13 +1,11 @@
+import { useCoffees } from "../../../hooks/useCoffe";
 import { Button } from "../../../components/Form/Button";
-import { useCoffes } from "../../../hooks/useCoffe";
 import CoffeQuantity from "../../Home/OurCoffees/CoffeQuantity";
 import styles from "./styles.module.scss";
 import CarrinhoVazio from "../../../../public/carrinho-vazio.png";
 
 export default function SelectedCoffes() {
-  const { cartItems, totalPriceItems } = useCoffes();
-
-  const totalPriceWithDelivery = totalPriceItems + 3.5;
+  const { cartItems } = useCoffees();
 
   return (
     <div className={styles.container}>
@@ -20,28 +18,36 @@ export default function SelectedCoffes() {
           <div className={styles.coffesWrapper}>
             {cartItems.length > 0 ? (
               <>
-                {cartItems.map((coffes, index) => {
+                {cartItems.map((coffees, index) => {
                   return (
                     <div
                       className={styles.coffesContent}
-                      key={`${coffes.id} ${index}`}
+                      key={`${coffees.id} ${index}`}
                     >
                       <div className={styles.coffeItem}>
                         <div>
-                          <img src={coffes.image} alt={coffes.alt} />
+                          <img src={coffees.image} />
                         </div>
 
                         <div className={styles.titleAndRemoveCoffe}>
-                          <p>{coffes.title}</p>
+                          <p>{coffees.name}</p>
 
                           <div>
-                            <CoffeQuantity coffe={coffes} />
+                            <CoffeQuantity
+                              id={coffees.id}
+                              image={coffees.image}
+                              type={coffees.type}
+                              name={coffees.name}
+                              description={coffees.description}
+                              price={coffees.price}
+                              quantity={coffees.quantity}
+                            />
                           </div>
                         </div>
 
                         <div className={styles.coffePrice}>
                           <p>
-                            {coffes.price.toLocaleString("pt-br", {
+                            {coffees.price.toLocaleString("pt-br", {
                               style: "currency",
                               currency: "BRL",
                             })}
@@ -59,7 +65,7 @@ export default function SelectedCoffes() {
             )}
           </div>
 
-          <div className={styles.valuesWrapper}>
+          {/* <div className={styles.valuesWrapper}>
             <div className={styles.totalItensWrapper}>
               <p>Total de itens</p>
 
@@ -85,7 +91,7 @@ export default function SelectedCoffes() {
                 currency: "BRL",
               })}
             </div>
-          </div>
+          </div> */}
         </div>
 
         <Button

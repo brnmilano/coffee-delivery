@@ -3,7 +3,7 @@ import { Input } from "../../../components/Form/Input/Input";
 import { Bank, CreditCard, MapPinLine, Money } from "phosphor-react";
 import styles from "./styles.module.scss";
 import { Control, FieldErrors } from "react-hook-form";
-import { useCoffes } from "../../../hooks/useCoffe";
+import { useCoffees } from "../../../hooks/useCoffe";
 
 interface CompleteYourOrderProps {
   /**
@@ -29,7 +29,7 @@ interface CompleteYourOrderProps {
 export default function CompleteYourOrder(props: CompleteYourOrderProps) {
   const { control, errors, handleOptionClick, selectedOption } = props;
 
-  const { cartItems } = useCoffes();
+  const { cartItems } = useCoffees();
 
   return (
     <div className={styles.container}>

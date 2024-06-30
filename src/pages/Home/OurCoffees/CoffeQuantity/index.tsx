@@ -1,55 +1,58 @@
-import { useState } from "react";
 import { Minus, Plus, Trash } from "phosphor-react";
-import { useCoffes } from "../../../../hooks/useCoffe";
 import styles from "./styles.module.scss";
 import Card from "../../../../components/Card";
+import { useCoffees } from "../../../../hooks/useCoffe";
+import { useState } from "react";
 
-export interface CoffeProps {
-  coffe: {
-    id: number;
-    image: string;
-    alt: string;
-    type: string[];
-    title: string;
-    description: string;
-    price: number;
-    totalPrice: number;
-  };
+export interface CoffeeProps {
+  id: number;
+  image: string;
+  type: string[];
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
 }
 
-export default function CoffeQuantity(props: CoffeProps) {
-  const { addToCart } = useCoffes();
+export default function CoffeeQuantity(props: CoffeeProps) {
+  const {
+    addProductsInCart,
+    increaseProductQuantity,
+    decreaseProductQuantity,
+  } = useCoffees();
 
-  const [coffeQuantity, setCoffeQuantity] = useState(0);
-
-  const handleDecreaseCoffe = () => {
-    if (coffeQuantity === 1) {
-      return;
-    }
-
-    setCoffeQuantity(coffeQuantity - 1);
-  };
+  const [coffeeQuantity, setCoffeeQuantity] = useState<number>(1);
 
   const handleIncreaseCoffe = () => {
-    if (coffeQuantity === 10) {
+    if (coffeeQuantity === 10) {
       return;
     }
 
-    setCoffeQuantity(coffeQuantity + 1);
+    setCoffeeQuantity(coffeeQuantity + 1);
+
+    increaseProductQuantity(props, coffeeQuantity);
+
+    addProductsInCart(props, coffeeQuantity);
+  };
+
+  const handleDecreaseCoffe = () => {
+    if (coffeeQuantity === 1) {
+      return;
+    }
+
+    setCoffeeQuantity(coffeeQuantity - 1);
+
+    decreaseProductQuantity(props, coffeeQuantity);
+
+    addProductsInCart(props, coffeeQuantity);
   };
 
   const handleAddCoffeToCart = () => {
-    if (coffeQuantity > 0) {
-      addToCart({ ...props.coffe, quantity: coffeQuantity }, "add");
-
-      setCoffeQuantity(0);
-    }
+    addProductsInCart(props, coffeeQuantity);
   };
 
   //Função para remover um item do carrinho
-  const handleRemoveCoffeFromCart = () => {
-    addToCart({ ...props.coffe, quantity: 1 }, "remove");
-  };
+  const handleRemoveCoffeFromCart = () => {};
 
   return (
     <div className={styles.container}>
@@ -62,7 +65,7 @@ export default function CoffeQuantity(props: CoffeProps) {
           <Minus size={18} weight="bold" />
         </button>
 
-        <div className={styles.quantity}>{coffeQuantity}</div>
+        <div className={styles.quantity}>{coffeeQuantity}</div>
 
         <button
           type="button"

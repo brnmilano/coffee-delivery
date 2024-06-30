@@ -1,6 +1,6 @@
 import { coffeData } from "../../../utils/coffes";
 import styles from "./styles.module.scss";
-import CoffeQuantity from "./CoffeQuantity";
+import CoffeeQuantity from "./CoffeQuantity";
 
 export default function OurCoffees() {
   return (
@@ -12,7 +12,7 @@ export default function OurCoffees() {
           <div className={styles.coffes} key={coffee.id}>
             <div>
               <div className={styles.imageWrapper}>
-                <img src={coffee.image} alt={coffee.alt} />
+                <img src={coffee.image} />
               </div>
 
               <div className={styles.coffeType}>
@@ -22,7 +22,7 @@ export default function OurCoffees() {
               </div>
 
               <div className={styles.textWrapper}>
-                <h3>{coffee.title}</h3>
+                <h3>{coffee.name}</h3>
 
                 <p>{coffee.description}</p>
               </div>
@@ -39,7 +39,15 @@ export default function OurCoffees() {
                 </span>
 
                 <div>
-                  <CoffeQuantity coffe={coffee} />
+                  <CoffeeQuantity 
+                    id={coffee.id}
+                    image={coffee.image}
+                    type={coffee.type}
+                    name={coffee.name}
+                    description={coffee.description}
+                    price={coffee.price}
+                    quantity={coffee.quantity}
+                  />
                 </div>
               </div>
             </div>
