@@ -1,19 +1,19 @@
+import { CommonProvider } from "./hooks/useCommon.tsx";
+import { CoffeesProvider } from "./hooks/useCoffe.tsx";
+import { BrowserRouter } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { CommonProvider } from "./hooks/useCommon.tsx";
 import Router from "./routes/index.tsx";
-import { BrowserRouter } from "react-router-dom";
 import "./styles/index.scss";
-import { CoffesProvider } from "./hooks/useCoffe.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <BrowserRouter>
-      <CoffesProvider>
+      <CoffeesProvider>
         <CommonProvider>
           <Router />
         </CommonProvider>
-      </CoffesProvider>
+      </CoffeesProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  //</React.StrictMode>
 );
