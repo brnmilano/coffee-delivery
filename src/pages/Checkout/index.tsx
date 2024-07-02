@@ -6,13 +6,18 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormType } from "../../types/form";
-import { AddressProps } from "../../types/address";
+import {
+  AddressAndPaymentMethodProps,
+  AddressProps,
+} from "../../types/address";
 import { toast } from "react-toastify";
 import { useCoffees } from "../../hooks/useCoffe";
 import CompleteYourOrder from "./CompleteYourOrder";
 import SelectedCoffes from "./SelectedCoffes";
 import styles from "./styles.module.scss";
 import Container from "../../components/Container/Container";
+import { useNavigate } from "react-router-dom";
+import { AddressAndPaymentMethodKey } from "../../types/keys";
 
 interface FormProps {
   props?: FormType;
@@ -23,10 +28,11 @@ export default function Checkout({ props }: FormProps) {
 
   const { selectedPayment, setSelectedPayment } = useCoffees();
 
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
-    //watch,
     formState: { errors },
   } = useForm<FormSchemaProps>({
     resolver: zodResolver(FormValidationSchema),
@@ -48,14 +54,16 @@ export default function Checkout({ props }: FormProps) {
       return;
     }
 
-    console.log(data);
-
     const formattedData = {
       ...data,
       selectedPayment,
-    };
+    } as AddressAndPaymentMethodProps;
 
-    console.log(formattedData);
+    const addressAndPayment = JSON.stringify(formattedData);
+
+    localStorage.setItem(AddressAndPaymentMethodKey, addressAndPayment);
+
+    navigate("/pedido-confirmado");
   };
 
   const handleOptionClick = (option: string) => {

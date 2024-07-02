@@ -141,10 +141,10 @@ export default function CompleteYourOrder(props: CompleteYourOrderProps) {
           <div className={styles.options}>
             <button
               className={`${styles.option} ${
-                selectedOption === "credito" ? styles.selected : ""
+                selectedOption === "Cartão de crédito" ? styles.selected : ""
               }`}
               type="button"
-              onClick={() => handleOptionClick("credito")}
+              onClick={() => handleOptionClick("Cartão de crédito")}
               disabled={cartItems.length === 0}
             >
               <CreditCard size={20} weight="regular" />
@@ -153,10 +153,10 @@ export default function CompleteYourOrder(props: CompleteYourOrderProps) {
 
             <button
               className={`${styles.option} ${
-                selectedOption === "debito" ? styles.selected : ""
+                selectedOption === "Cartão de débito" ? styles.selected : ""
               }`}
               type="button"
-              onClick={() => handleOptionClick("debito")}
+              onClick={() => handleOptionClick("Cartão de débito")}
               disabled={cartItems.length === 0}
             >
               <Bank size={20} weight="regular" />
@@ -165,10 +165,10 @@ export default function CompleteYourOrder(props: CompleteYourOrderProps) {
 
             <button
               className={`${styles.option} ${
-                selectedOption === "dinheiro" ? styles.selected : ""
+                selectedOption === "Dinheiro" ? styles.selected : ""
               }`}
               type="button"
-              onClick={() => handleOptionClick("dinheiro")}
+              onClick={() => handleOptionClick("Dinheiro")}
               disabled={cartItems.length === 0}
             >
               <Money size={20} weight="regular" />

@@ -1,11 +1,43 @@
 import { CurrencyDollar, MapPin, Timer } from "phosphor-react";
 import { useCoffees } from "../../hooks/useCoffe";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Container from "../../components/Container/Container";
 import styles from "./styles.module.scss";
 import DeliveryImage from "../../../public/delivery.png";
+import { AddressAndPaymentMethodKey } from "../../types/keys";
+import { AddressAndPaymentMethodProps } from "../../types/address";
 
 export default function OrderConfirmed() {
-  const { selectedPayment } = useCoffees();
+  const { cartItems } = useCoffees();
+
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState<AddressAndPaymentMethodProps>(
+    {} as AddressAndPaymentMethodProps
+  );
+
+  const onLoadScreen = () => {
+    if (cartItems.length === 0) {
+      toast.warning("Você não possui nenhum item no carrinho.");
+
+      navigate("/");
+    }
+
+    const getAdrressAndPayment = localStorage.getItem(
+      AddressAndPaymentMethodKey
+    );
+
+    if (getAdrressAndPayment !== null) {
+      setFormData(JSON.parse(getAdrressAndPayment));
+    }
+  };
+
+  useEffect(() => {
+    onLoadScreen();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container>
@@ -25,10 +57,11 @@ export default function OrderConfirmed() {
 
               <div>
                 <p>
-                  Entrega em <span>Rua João Daniel Martinelli, 102</span>
+                  Entrega em{" "}
+                  <span>
+                    {formData.street} {formData.number}
+                  </span>
                 </p>
-
-                <p>Farrapos - Porto Alegre, RS</p>
               </div>
             </div>
 
@@ -40,7 +73,7 @@ export default function OrderConfirmed() {
               <div>
                 <p>Previsão de entrega</p>
 
-                <span>20 min - 30 min </span>
+                <span>20 min - 30 min</span>
               </div>
             </div>
 
@@ -52,13 +85,13 @@ export default function OrderConfirmed() {
               <div>
                 <p>Pagamento na entrega</p>
 
-                <span>{selectedPayment}</span>
+                <span>{formData.selectedPayment}</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div>
+        <div className={styles.imageWrapper}>
           <img src={DeliveryImage} />
         </div>
       </div>

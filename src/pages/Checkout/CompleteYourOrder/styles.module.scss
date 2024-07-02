@@ -1,5 +1,7 @@
+@import "../../../styles/breakpoints";
+
 .container {
-  width: 60%;
+  width: 100%;
 
   .title {
     font-size: 18px;
@@ -99,6 +101,7 @@
 
       .options {
         display: flex;
+        flex-direction: column;
         justify-content: space-around;
         gap: 10px;
       }
@@ -133,6 +136,153 @@
 
         svg {
           color: var(--purple);
+        }
+      }
+    }
+  }
+}
+
+@include media-md {
+  .container {
+    width: 60%;
+
+    .formContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .contentWrapper {
+        background-color: var(--base-card);
+        padding: 40px;
+        border-radius: 6px;
+
+        .item1 {
+          grid-area: cep;
+          width: 200px;
+        }
+
+        .item2 {
+          grid-area: rua;
+        }
+
+        .item3 {
+          grid-area: numero;
+        }
+
+        .item4 {
+          grid-area: complemento;
+        }
+
+        .item5 {
+          grid-area: bairro;
+        }
+
+        .item6 {
+          grid-area: cidade;
+        }
+
+        .item7 {
+          grid-area: uf;
+        }
+
+        .deliveryAddress {
+          svg {
+            color: var(--yellow-dark);
+          }
+        }
+
+        .formOfPayment {
+          svg {
+            color: var(--purple);
+          }
+        }
+
+        .deliveryAddress,
+        .formOfPayment {
+          display: flex;
+          gap: 10px;
+
+          .adressText {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 8px;
+            margin-bottom: 35px;
+
+            h3 {
+              color: var(--base-subtitle);
+              font-weight: 400;
+              font-size: 16px;
+            }
+
+            p {
+              color: var(--base-text);
+              font-size: 14px;
+            }
+          }
+        }
+
+        .formWrapper {
+          display: grid;
+          row-gap: 25px;
+          column-gap: 15px;
+          grid-template-columns: repeat(2, 1fr);
+          grid-template-areas:
+            "cep cep cep cep cep cep"
+            "rua rua rua rua rua rua"
+            "numero complemento complemento complemento complemento complemento"
+            "bairro cidade cidade cidade uf uf";
+        }
+
+        .options {
+          display: flex;
+          justify-content: space-around;
+          gap: 10px;
+        }
+
+        .option {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: var(--base-button);
+          border: 2px solid #ccc;
+          border-radius: 5px;
+          padding: 15px 10px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-size: 14px;
+          width: 100%;
+          text-transform: uppercase;
+
+          &:hover:disabled {
+            border: 2px solid #ccc;
+            cursor: not-allowed;
+          }
+
+          &:hover {
+            border-color: var(--purple-light);
+          }
+
+          &.selected {
+            border-color: var(--purple);
+            background: var(--purple-light);
+          }
+
+          svg {
+            color: var(--purple);
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-lg {
+  .container {
+    .formContainer {
+      .contentWrapper {
+        .options {
+          flex-direction: row;
         }
       }
     }

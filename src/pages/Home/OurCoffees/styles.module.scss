@@ -96,3 +96,30 @@
     }
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .container {
+    .coffeWrapper {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    .coffeWrapper {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .container {
+    .coffeWrapper {
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(1, 1fr);
+    }
+  }
+}

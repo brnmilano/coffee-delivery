@@ -12,8 +12,8 @@ import {
 } from "react";
 import { ActionTypes } from "../reducers/products/actionTypes";
 import { cartItemsReducer } from "../reducers/products/reducer";
-import { productsInCartKey } from "../types/keys";
 import { CoffeeProps } from "../types/coffee";
+import { productsInCartKey } from "../types/keys";
 
 interface useCoffeesProps {
   children: ReactNode;

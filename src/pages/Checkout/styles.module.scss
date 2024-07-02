@@ -1,5 +1,15 @@
+@import "../../styles/breakpoints";
+
 .container {
   display: flex;
+  flex-direction: column;
   gap: 32px;
   padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+@include media-md {
+  .container {
+    flex-direction: row;
+  }
 }

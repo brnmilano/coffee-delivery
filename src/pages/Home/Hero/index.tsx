@@ -47,7 +47,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div>
+      <div className={styles.imageWrapper}>
         <img src={CoffeDellivery} alt="Coffe Dellivery" />
       </div>
     </div>

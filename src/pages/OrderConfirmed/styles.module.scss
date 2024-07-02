@@ -1,10 +1,13 @@
+@import "../../styles/breakpoints";
+
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin-top: 80px;
 
   .leftWrapper {
-    width: 45%;
+    width: 100%;
 
     .titleAndSubtitle {
       display: flex;
@@ -128,6 +131,163 @@
             font-size: 16px;
           }
         }
+      }
+    }
+  }
+
+  .imageWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    
+    img {
+      width: 292px;
+      height: 193px;
+    }
+  }
+}
+
+@include media-md {
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 80px;
+
+    .leftWrapper {
+      width: 45%;
+
+      .titleAndSubtitle {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        h2 {
+          font-family: "Baloo 2", sans-serif;
+          color: var(--yellow-dark);
+          font-weight: 700;
+        }
+
+        p {
+          color: var(--base-subtitle);
+        }
+      }
+
+      .deliveryInfos {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        padding: 40px;
+        border: 2px solid;
+        border-radius: 12px;
+        border-image-slice: 1;
+        border-image-source: linear-gradient(to right, #dbac2c, #8047f8);
+        margin-top: 45px;
+
+        .location,
+        .deliveryTime,
+        .price {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .location {
+          .locationIcon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--purple);
+            width: 35px;
+            height: 35px;
+            color: var(--white);
+            border-radius: 50%;
+
+            svg {
+              margin-left: 1px;
+            }
+          }
+
+          div {
+            p {
+              color: var(--base-text);
+              font-size: 16px;
+            }
+
+            span {
+              font-weight: 600;
+              font-size: 16px;
+            }
+          }
+        }
+
+        .deliveryTime {
+          .deliveryIcon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--yellow);
+            width: 35px;
+            height: 35px;
+            color: var(--white);
+            border-radius: 50%;
+
+            svg {
+              margin-left: 1px;
+            }
+          }
+
+          div {
+            color: var(--base-text);
+
+            p {
+              font-size: 16px;
+            }
+
+            span {
+              font-weight: 600;
+              font-size: 16px;
+            }
+          }
+        }
+
+        .price {
+          .priceIcon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--yellow-dark);
+            width: 35px;
+            height: 35px;
+            color: var(--white);
+            border-radius: 50%;
+
+            svg {
+              margin-left: 1px;
+            }
+          }
+
+          div {
+            color: var(--base-text);
+
+            p {
+              font-size: 16px;
+            }
+
+            span {
+              font-weight: 600;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+
+    .imageWrapper {
+      img {
+        width: 492px;
+        height: 293px;
       }
     }
   }
