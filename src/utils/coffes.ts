@@ -1,4 +1,4 @@
-import { Coffee } from "../hooks/useCoffe";
+import { CoffeeProps } from "../types/coffee";
 import Expresso from "../../public/Coffes/expresso-tradicional.png";
 import ExpressoAmericano from "../../public/Coffes/expresso-americano.png";
 import ExpressoCremoso from "../../public/Coffes/expresso-cremoso.png";
@@ -145,4 +145,4 @@ export const coffeData = [
     price: 9.9,
     quantity: 1,
   },
-] as Coffee[];
+] as CoffeeProps[];

@@ -11,6 +11,7 @@
   font-size: 14px;
   border: none;
   cursor: pointer;
+  border-radius: 6px;
 
   &:disabled {
     background-color: var(--disabled-input);

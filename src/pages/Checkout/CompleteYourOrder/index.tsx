@@ -77,6 +77,7 @@ export default function CompleteYourOrder(props: CompleteYourOrderProps) {
                 control={control}
                 errors={errors}
                 registerField="number"
+                mask="999999"
                 disabled={cartItems.length === 0}
               />
             </div>
@@ -117,6 +118,7 @@ export default function CompleteYourOrder(props: CompleteYourOrderProps) {
                 control={control}
                 errors={errors}
                 registerField="uf"
+                maxLength={2}
                 disabled={cartItems.length === 0}
               />
             </div>

@@ -5,7 +5,9 @@ import styles from "./styles.module.scss";
 import CarrinhoVazio from "../../../../public/carrinho-vazio.png";
 
 export default function SelectedCoffes() {
-  const { cartItems } = useCoffees();
+  const { cartItems, totalPriceItems } = useCoffees();
+
+  const totalPriceWithDelivery = totalPriceItems + 3.5;
 
   return (
     <div className={styles.container}>
@@ -30,24 +32,20 @@ export default function SelectedCoffes() {
                         </div>
 
                         <div className={styles.titleAndRemoveCoffe}>
-                          <p>{coffees.name}</p>
+                          <div className={styles.nameAndQuantity}>
+                            <p>{coffees.name}</p>
+
+                            <p>({coffees.quantity})</p>
+                          </div>
 
                           <div>
-                            <CoffeQuantity
-                              id={coffees.id}
-                              image={coffees.image}
-                              type={coffees.type}
-                              name={coffees.name}
-                              description={coffees.description}
-                              price={coffees.price}
-                              quantity={coffees.quantity}
-                            />
+                            <CoffeQuantity coffee={coffees} />
                           </div>
                         </div>
 
                         <div className={styles.coffePrice}>
                           <p>
-                            {coffees.price.toLocaleString("pt-br", {
+                            {coffees.totalItemPrice.toLocaleString("pt-br", {
                               style: "currency",
                               currency: "BRL",
                             })}
@@ -65,7 +63,7 @@ export default function SelectedCoffes() {
             )}
           </div>
 
-          {/* <div className={styles.valuesWrapper}>
+          <div className={styles.valuesWrapper}>
             <div className={styles.totalItensWrapper}>
               <p>Total de itens</p>
 
@@ -91,7 +89,7 @@ export default function SelectedCoffes() {
                 currency: "BRL",
               })}
             </div>
-          </div> */}
+          </div>
         </div>
 
         <Button

@@ -16,7 +16,7 @@ export default function OurCoffees() {
               </div>
 
               <div className={styles.coffeType}>
-                {coffee.type.map((type, index) => (
+                {coffee.type.map((type: string, index: number) => (
                   <p key={index}>{type}</p>
                 ))}
               </div>
@@ -39,15 +39,7 @@ export default function OurCoffees() {
                 </span>
 
                 <div>
-                  <CoffeeQuantity 
-                    id={coffee.id}
-                    image={coffee.image}
-                    type={coffee.type}
-                    name={coffee.name}
-                    description={coffee.description}
-                    price={coffee.price}
-                    quantity={coffee.quantity}
-                  />
+                  <CoffeeQuantity coffee={coffee} />
                 </div>
               </div>
             </div>

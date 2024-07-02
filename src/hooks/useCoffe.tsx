@@ -1,107 +1,174 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-refresh/only-export-components */
-import { ReactNode, createContext, useContext, useReducer } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+import { ActionTypes } from "../reducers/products/actionTypes";
+import { cartItemsReducer } from "../reducers/products/reducer";
+import { productsInCartKey } from "../types/keys";
+import { CoffeeProps } from "../types/coffee";
 
 interface useCoffeesProps {
   children: ReactNode;
 }
 
-export interface Coffee {
-  id: number;
-  image: string;
-  type: string[];
-  name: string;
-  description: string;
-  price: number;
-  quantity: number;
-}
-
 interface CoffeesContextData {
-  cartItems: Coffee[];
-  addProductsInCart: (product: Coffee, productQuantity: number) => void;
-  increaseProductQuantity: (product: Coffee, productQuantity: number) => void;
-  decreaseProductQuantity: (product: Coffee, productQuantity: number) => void;
+  cartItems: CoffeeProps[];
+  addProductsInCart: (product: CoffeeProps, productQuantity: number) => void;
+  removeAllProducts: (product: CoffeeProps) => void;
+  increaseProductQuantity: (
+    product: CoffeeProps,
+    productQuantity: number
+  ) => void;
+  decreaseProductQuantity: (
+    product: CoffeeProps,
+    productQuantity: number
+  ) => void;
+  priceItem: number;
+  setPriceItem: Dispatch<SetStateAction<number>>;
+  totalPriceItems: number;
+  setTotalPriceItems: Dispatch<SetStateAction<number>>;
+  selectedPayment: string;
+  setSelectedPayment: Dispatch<SetStateAction<string>>;
 }
 
 export const CoffeesContext = createContext({} as CoffeesContextData);
 
 function CoffeesProvider({ children }: useCoffeesProps) {
-  //localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  const [totalPriceItems, setTotalPriceItems] = useState<number>(0);
+  const [priceItem, setPriceItem] = useState<number>(0);
+  const [selectedPayment, setSelectedPayment] = useState<string>("");
 
-  const [cartItems, dispatch] = useReducer((state: Coffee[], action: any) => {
-    console.log(action);
+  const [cartItems, dispatch] = useReducer(cartItemsReducer, [], () => {
+    const storageStateAsJSON = localStorage.getItem(productsInCartKey) || "";
 
-    if (action === "ADD_NEW_PRODUCT") {
-      return [...state, action.payload.addNewProduct];
+    try {
+      return JSON.parse(storageStateAsJSON);
+    } catch (error) {
+      return [];
     }
+  });
 
-    return state;
-  }, []);
-
-  const addProductsInCart = (product: Coffee, productQuantity: number) => {
-    const addNewProduct = {
+  /**
+   * Adiciona um novo produto ao carrinho de compras, com a quantidade informada.
+   *
+   * @param product Objeto do produto a ser adicionado ao carrinho.
+   * @param productQuantity Quantidade do produto a ser adicionado ao carrinho.
+   */
+  function addProductsInCart(product: CoffeeProps, productQuantity: number) {
+    const newProduct = {
       ...product,
       quantity: productQuantity,
+      totalItemPrice: product.price * productQuantity,
     };
 
     dispatch({
-      type: "ADD_NEW_PRODUCT",
+      type: ActionTypes.ADD_NEW_PRODUCT,
       payload: {
-        addNewProduct,
+        newProduct,
       },
     });
+  }
 
-    console.log(addNewProduct.quantity);
-  };
+  /**
+   * Remover completamente um produto do estado global do carrinho, independentemente da sua quantidade.
+   *
+   * @param product Objeto do produto que será removido do carrinho.
+   */
+  function removeAllProducts(product: CoffeeProps) {
+    dispatch({
+      type: ActionTypes.REMOVE_PRODUCT,
+      payload: {
+        product,
+      },
+    });
+  }
 
-  const increaseProductQuantity = (
-    product: Coffee,
+  /**
+   * Incrementa a quantidade de um produto específico no carrinho de compras.
+   *
+   * @param product O produto que terá sua quantidade incrementada.
+   * @param productQuantity Valor da quantidade a ser adicionada ao produto no carrinho.
+   */
+  function increaseProductQuantity(
+    product: CoffeeProps,
     productQuantity: number
-  ) => {
+  ) {
     const increaseOneItem = {
       ...product,
       quantity: productQuantity + 1,
     };
 
     dispatch({
-      type: "INCREASE_PRODUCT_QUANTITY",
+      type: ActionTypes.INCREASE_PRODUCT_QUANTITY,
       payload: {
         increaseOneItem,
       },
     });
 
-    //console.log({ increaseOneItem });
-  };
+    console.log(increaseOneItem.quantity);
+  }
 
-  const decreaseProductQuantity = (
-    product: Coffee,
+  /**
+   * Decrementa a quantidade de um produto específico no carrinho de compras.
+   *
+   * @param product O produto que terá sua quantidade decrementada.
+   * @param productQuantity Valor da quantidade a ser subtraída do produto no carrinho.
+   */
+  function decreaseProductQuantity(
+    product: CoffeeProps,
     productQuantity: number
-  ) => {
-    console.log({ product });
-    console.log({ productQuantity });
-
+  ) {
     const decreaseOneItem = {
       ...product,
       quantity: productQuantity - 1,
     };
 
     dispatch({
-      type: "DECREASE_PRODUCT_QUANTITY",
+      type: ActionTypes.DECREASE_PRODUCT_QUANTITY,
       payload: {
         decreaseOneItem,
       },
     });
 
     console.log(decreaseOneItem.quantity);
-  };
+  }
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cartItems);
+
+    localStorage.setItem(productsInCartKey, stateJSON);
+  }, [cartItems]);
+
+  useEffect(() => {
+    const totalValue = cartItems.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0);
+
+    setTotalPriceItems(totalValue);
+  }, [cartItems]);
 
   return (
     <CoffeesContext.Provider
       value={{
         cartItems,
         addProductsInCart,
+        removeAllProducts,
         increaseProductQuantity,
         decreaseProductQuantity,
+        priceItem,
+        setPriceItem,
+        totalPriceItems,
+        setTotalPriceItems,
+        selectedPayment,
+        setSelectedPayment,
       }}
     >
       {children}

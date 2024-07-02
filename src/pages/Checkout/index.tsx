@@ -6,12 +6,13 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormType } from "../../types/form";
-import { useState } from "react";
+import { AddressProps } from "../../types/address";
+import { toast } from "react-toastify";
+import { useCoffees } from "../../hooks/useCoffe";
 import CompleteYourOrder from "./CompleteYourOrder";
 import SelectedCoffes from "./SelectedCoffes";
 import styles from "./styles.module.scss";
 import Container from "../../components/Container/Container";
-import { AddressProps } from "../../types/address";
 
 interface FormProps {
   props?: FormType;
@@ -20,7 +21,7 @@ interface FormProps {
 export default function Checkout({ props }: FormProps) {
   const { cep, street, number, complement, district, city, uf } = props || {};
 
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const { selectedPayment, setSelectedPayment } = useCoffees();
 
   const {
     control,
@@ -42,18 +43,23 @@ export default function Checkout({ props }: FormProps) {
   });
 
   const onSubmit = (data: AddressProps) => {
+    if (!selectedPayment) {
+      toast.warning("Selecione a forma de pagamento.");
+      return;
+    }
+
     console.log(data);
 
     const formattedData = {
       ...data,
-      selectedOption,
+      selectedPayment,
     };
 
     console.log(formattedData);
   };
 
   const handleOptionClick = (option: string) => {
-    setSelectedOption(option);
+    setSelectedPayment(option);
   };
 
   return (
@@ -64,7 +70,7 @@ export default function Checkout({ props }: FormProps) {
             control={control}
             errors={errors}
             handleOptionClick={handleOptionClick}
-            selectedOption={selectedOption}
+            selectedOption={selectedPayment}
           />
 
           <SelectedCoffes />
