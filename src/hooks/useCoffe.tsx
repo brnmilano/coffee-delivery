@@ -149,6 +149,8 @@ function CoffeesProvider({ children }: useCoffeesProps) {
 
   useEffect(() => {
     const totalValue = cartItems.reduce((total, item) => {
+      console.log(total);
+
       return total + item.price * item.quantity;
     }, 0);
 
